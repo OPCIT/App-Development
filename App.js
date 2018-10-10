@@ -21,7 +21,6 @@ export default class Screen extends React.Component {
   render() {
     return (
       <RootStack />
-        
     );
   }
 }
