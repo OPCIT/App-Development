@@ -1,31 +1,58 @@
-import React, { Component } from 'react';
-import {Text, TextInput, View } from 'react-native';
+import * as React from 'react';
+import {Text, TextInput, View, Button, Alert } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
 
-export default class LoginScreen extends Component {
+export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {user: ''};
     this.state = {password: ''};
   }
-
+  onPressLogin(){
+  	() => this.props.navigation.navigate('Profile')
+  }
+   static navigationOptions = {
+          title: 'Welcome',
+          };
+ 
   render() {
     return (
-      <View style={{padding: 10}}>
-        <Text>User Name</Text>
-
-        <TextInput
-          style={{height: 40}}
-          placeholder="User Name!"
-          onChangeText={(user) => this.setState({user})}
-        />
-        <Text>Password</Text>
-
-        <TextInput
-          style={{height: 40}}
-          placeholder="Please enter your password"
-          onChangeText={(password) => this.setState({password})}
-        />
-      </View>
+    
+      <View style={{flex:1, justifyContent:'center', padding: 10}}>
+        
+        <View style={{flexDirection:'row',justifyContent: 'space-between', margin:20}}>
+          <View style={{width:100, paddingTop:12}}>
+            <Text>User Name</Text>
+          </View>
+          <View style={{width:180}}>
+            <TextInput
+              style={{height: 40}}
+              placeholder="User Name!"
+              onChangeText={(user) => this.setState({user})}
+            />
+          </View>
+        </View>
+        <View style={{flexDirection:'row', justifyContent: 'space-between', margin:20}}>
+          <View style={{width:100, paddingTop:12}}>
+            <Text>Password</Text>
+          </View>
+          <View style={{width:180}}>
+            <TextInput
+            style={{height: 40}}
+            placeholder="Password!"
+            onChangeText={(password) => this.setState({password})}
+          />
+          </View>
+          </View>
+        <View>
+        <Button
+  		onPress={() => this.props.navigation.navigate('Profile')}
+  		title="Login"
+  		style={{height: 40}}
+  		accessibilityLabel="Login"
+		  />
+	    </View>
+    </View>
     );
   }
 }
