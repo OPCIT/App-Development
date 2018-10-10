@@ -1,0 +1,78 @@
+<h1>React Native Notes</h1>
+
+<h2>Setting up Development Environment</h2>
+<p>Install <a href="https://nodejs.org/en/download/">NodeJS</a>, <a href="https://www.npmjs.com/get-npm">NPM</a>, <a href="https://expo.io/tools#cli">Expo-CLI</a>, <a href="https://developer.android.com/studio/">Android Studio</a> (Solely for the Android Emulator), <a href="https://software.intel.com/en-us/articles/intel-hardware-accelerated-execution-manager-intel-haxm">HAXM</a></p>
+
+<p>Note: Expo-CLI is fussy about the version of NodeJS and NPM. I had to install <a href="https://github.com/mklement0/n-install">N Install</a> to manage the versions, as I was finding the NodeJS Windows installer was installing a lower version (4.26) that it was meant to and is required by NodeJS.</p>
+
+Android / iOS devices with Expo client app installed:
+<ul>
+<li><a href="https://itunes.apple.com/au/app/expo-client/id982107779?mt=8">Expo client App: iTunes</a></li>
+<li><a href="https://play.google.com/store/apps/details?id=host.exp.exponent">Expo client App: Google Play</a></li>
+</ul>
+
+<h2>Testing</h2>
+<h3>Testing for Android</h3>
+<ul>
+<li>Using expo-cli and the expo client app installed on an android device or the Android Emulator</li>
+<li>Via <a href="https://snack.expo.io">https://snack.expo.io</a></li>
+</ul>
+<h3>Testing for iOS</h3>
+<ul>
+<li>Using expo-cli and the expo client app installed on an iOS device</li>
+<li>Via <a href="https://snack.expo.io">https://snack.expo.io</a></li>
+</ul>
+
+<h2>Frameworks and Libraries</h2>
+Expo - <a href="https://expo.io/tools">https://expo.io/tools</a>
+<ul>
+<li>Provides an SDK and tools to build to Android and iOS, Manages Push Certificates, creates boilerplate</li>
+<li>Limits your ability to use native libraries (there are work arounds) but this should not be an issue</li>
+</ul>
+
+<h3>React Navigation - https://reactnavigation.org/</h3>
+<p>A javascript library to handle navigation (i.e. between the different screens of the application as well as Authentication flow) this seems like the best of the available options for our use case</p>
+<p><a href="https://medium.com/handlebar-labs/navigating-navigation-in-react-native-26c7e4690f94">An article on other options</a></p>
+
+<h2>Authentication</h2>
+<p>If we require user authentication i.e. to display users priveleges card, React Native can communicate with Drupal via a REST API using JSON Web Token.
+Modules are avaliable to cover the basics of this in Drupal 8:</p>
+<ul>
+<li><a href="https://www.drupal.org/project/restui">https://www.drupal.org/project/restui</a></li>
+<li><a href="https://www.drupal.org/project/jwt">https://www.drupal.org/project/jwt</a></li>
+</ul>
+
+<p>See: <a href="https://dropsolid.com/en/blog/drupal-8-and-react-native">Drupal 8 and React Native</a></p>
+
+<p>Drupal 7 support however is spotty:<br/>
+<a href="https://www.drupal.org/project/jwt/issues/2990298">https://www.drupal.org/project/jwt/issues/2990298</a></p>
+
+<p>We may need to do some custom module development on the Drupal side to handle things:<br/><a href="https://drupalize.me/series/building-web-services-drupal-7">Building web services in Drupal 7</a></p>
+
+<h2>Layout / Design</h2>
+<p>React Native Responsive UI - A library for dealing with different screen dimensions (i.e. If you want different layouts for different devices)<br/>
+See: https://github.com/wcandillon/react-native-responsive-ui</p>
+
+
+<p>React Native Responsive Screen - For scaling to different dimensions (i.e. If you want the same layout scaled on different devices)</br>See: <a href="https://www.npmjs.com/package/react-native-responsive-screen">https://www.npmjs.com/package/react-native-responsive-screen</a></p>
+
+
+<strong><em>React Native heavily uses CSS flexbox</em></strong>
+
+<h3>CSS</h3>
+<ul>
+<li>Not all properties are supported; at least not yet.</li>
+<li>Check the documentation for more info: View Style Props, Image Style Props, Text Style Props</li>
+<li>Shorthand properties do not work well, so always prefer the specific ones (i.e. margin-bottom, margin-top, margin-left, margin-right instead of margin)</li>
+<li>Not all properties support percentage values. To mention a few: margin, border-width and border-radius. And if someone tries to set a percentage value, RN will either ignore it completely or the application will crash.</li>
+<li>RN provides flex support out of the box. Learn it and use whenever you can. It?s you best CSS ally!</li>
+</ul>
+
+<h2>IDE</h2>
+<a href="https://www.decoide.org/">https://www.decoide.org</a>  - Mac only (Windows dev underway)
+
+<h2>Other Resources</h2>
+<ul>
+<li><a href="https://learn.handlebarlabs.com/p/how-to-set-up-a-new-react-native-project">How to Set up a New React Native Project</a></li>
+<li><a href="http://www.reactnativeexpress.com/">Learn React Native</a></li>
+</ul>
