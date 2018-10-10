@@ -6,7 +6,6 @@ export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = { user: '' };
-    //this.onPressLogin = this.onPressLogin.bind(this);
   }
 
   onPressLogin() {
@@ -16,26 +15,29 @@ export default class LoginScreen extends React.Component {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: 
-          'client_id=example_id&username=jeannie.panting@opc.com.au&password=30S3condstom@rs&grant_type=password',
-      
+	  body: JSON.stringify({
+		grant_type: 'password',
+		client_id: 'example_id',
+		username: 'jeannie.panting@opc.com.au',
+		password: '30S3condstom@rs',
+	  }),
     })
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
-          isLoading: false,
-          dataSource: responseJson.error_description,
+          access_token: responseJson.access_token,
+		  refresh_token: responseJson.refresh_token,
         }, function(){
-
         });
-        Alert.alert(responseJson.error_description);
+        Alert.alert(responseJson.access_token);
       })
       .catch(error => {
         console.error(error);
       });
   }
+  
   static navigationOptions = {
-    title: 'Welcome',
+    title: 'Welcome v5',
   };
 
   render() {
@@ -84,7 +86,7 @@ export default class LoginScreen extends React.Component {
           />
         </View>
         <View>
-        <Text data={this.state.dataSource} />
+        <Text data={this.state.access_token} />
         </View>
       </View>
     );
