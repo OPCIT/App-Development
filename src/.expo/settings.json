@@ -2,6 +2,6 @@
   "hostType": "lan",
   "lanType": "ip",
   "dev": false,
-  "minify": true,
-  "urlRandomness": "7q-siw"
+  "minify": false,
+  "urlRandomness": "79-9w4"
 }

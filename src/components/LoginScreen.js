@@ -1,13 +1,19 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import { Text, TextInput, View, Button, Alert } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
+import { Constants } from 'expo';
 
-export default class LoginScreen extends React.Component {
+export default class LoginScreen extends Component {
+
   constructor(props) {
     super(props);
-    this.state = { user: '' };
+
+    /* Set the general states for when the App first loads */
+    this.state = {
+      access_token: 'none',
+    };
   }
 
+  /* When the user presses Login */
   onPressLogin() {
     return fetch('http://intranet.opcit.net.au/oauth2/token', {
       method: 'POST',
@@ -15,30 +21,43 @@ export default class LoginScreen extends React.Component {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-	  body: JSON.stringify({
-		grant_type: 'password',
-		client_id: 'example_id',
-		username: 'jeannie.panting@opc.com.au',
-		password: '30S3condstom@rs',
-	  }),
+      body: JSON.stringify({
+        grant_type: 'password',
+        client_id: 'example_id',
+
+        /* If the details aren't provided, use these defaults */
+        username: this.state.user ? this.state.user : 'jeannie.panting@opc.com.au',
+        password: this.state.password ? this.state.password : '30S3condstom@rs',
+      }),
     })
       .then(response => response.json())
       .then(responseJson => {
-        this.setState({
-          access_token: responseJson.access_token,
-		  refresh_token: responseJson.refresh_token,
-        }, function(){
+        if (responseJson.error_description) {
+
+          /* If we get an error description returned, something went wrong, so error */
+          Alert.alert('Error: ' + responseJson.error_description);
+        } else {
+
+          /* Otherwise everything worked, so update the states and Alert us */
+          this.setState(
+            {
+              access_token: responseJson.access_token,
+            },
+            function() {}
+          );
+
+        this.props.navigation.navigate('Main', {
+          oauth_token: responseJson.access_token
         });
-        Alert.alert(responseJson.access_token);
+        
+        }
       })
       .catch(error => {
+        /* This is if the Fetch itself failed I think.... */
+        Alert.alert('Error: ' + error);
         console.error(error);
       });
   }
-  
-  static navigationOptions = {
-    title: 'Welcome v5',
-  };
 
   render() {
     return (
@@ -72,21 +91,19 @@ export default class LoginScreen extends React.Component {
           <View style={{ width: 180 }}>
             <TextInput
               style={{ height: 40 }}
+              secureTextEntry={true}
               placeholder="Password!"
               onChangeText={password => this.setState({ password })}
             />
           </View>
         </View>
-        <View>
+        <View style={{ paddingTop: 12 }}>
           <Button
             onPress={() => this.onPressLogin()}
             title="Login"
             style={{ height: 40 }}
             accessibilityLabel="Login"
           />
-        </View>
-        <View>
-        <Text data={this.state.access_token} />
         </View>
       </View>
     );
