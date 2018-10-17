@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Button, Alert } from 'react-native';
+import { Text, TextInput, View, Button, Alert, Image } from 'react-native';
 import { Constants } from 'expo';
 
 export default class LoginScreen extends Component {
+
+  static navigationOptions = {
+    title: 'Login',
+  };
 
   constructor(props) {
     super(props);
@@ -61,49 +65,57 @@ export default class LoginScreen extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            margin: 20,
-          }}>
-          <View style={{ width: 100, paddingTop: 12 }}>
-            <Text>User Name</Text>
+      <View style={{ flex: 1, justifyContent: 'flex-start', padding: 10 }}>
+        <View>
+          <Image
+            style={{ width: 200, height: 50, alignSelf: "center"}}
+            source={require('../assets/logo_trans.png')}
+            />
+        </View>
+        <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              margin: 20,
+            }}>
+            <View style={{ width: 100, paddingTop: 12 }}>
+              <Text>User Name</Text>
+            </View>
+            <View style={{ width: 180 }}>
+              <TextInput
+                style={{ height: 40 }}
+                placeholder="User Name!"
+                onChangeText={user => this.setState({ user })}
+              />
+            </View>
           </View>
-          <View style={{ width: 180 }}>
-            <TextInput
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              margin: 20,
+            }}>
+            <View style={{ width: 100, paddingTop: 12 }}>
+              <Text>Password</Text>
+            </View>
+            <View style={{ width: 180 }}>
+              <TextInput
+                style={{ height: 40 }}
+                secureTextEntry={true}
+                placeholder="Password!"
+                onChangeText={password => this.setState({ password })}
+              />
+            </View>
+          </View>
+          <View style={{ paddingTop: 12 }}>
+            <Button
+              onPress={() => this.onPressLogin()}
+              title="Login"
               style={{ height: 40 }}
-              placeholder="User Name!"
-              onChangeText={user => this.setState({ user })}
+              accessibilityLabel="Login"
             />
           </View>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            margin: 20,
-          }}>
-          <View style={{ width: 100, paddingTop: 12 }}>
-            <Text>Password</Text>
-          </View>
-          <View style={{ width: 180 }}>
-            <TextInput
-              style={{ height: 40 }}
-              secureTextEntry={true}
-              placeholder="Password!"
-              onChangeText={password => this.setState({ password })}
-            />
-          </View>
-        </View>
-        <View style={{ paddingTop: 12 }}>
-          <Button
-            onPress={() => this.onPressLogin()}
-            title="Login"
-            style={{ height: 40 }}
-            accessibilityLabel="Login"
-          />
         </View>
       </View>
     );

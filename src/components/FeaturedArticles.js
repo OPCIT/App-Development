@@ -7,6 +7,32 @@ export default class FeaturedArticles extends React.Component {
     super(props);
   }
 
+  /* Get the user profile and send us to that page */
+  loadNewsletterArticles(month, year) {
+    const { navigation } = this.props;
+    const access_token   = navigation.getParam('oauth_token', 'none');
+
+    return fetch('http://intranet.opcit.net.au/api/views/api_features_articles?display_id=services_2&date[value][month]='+month+'&date[value][year]='+year+'', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + access_token,
+      },
+    }) 
+      .then(response => response.json())
+      .then(responseJson => {
+        this.props.navigation.navigate('Newsletter', {
+          articles: responseJson, 
+          oauth_token: access_token
+        });
+      })
+      .catch(error => {
+        Alert.alert(JSON.stringify(error));
+        console.error(error);
+      });
+  }
+
   static navigationOptions = {
     title: 'Featured Articles',
   };
@@ -18,17 +44,18 @@ export default class FeaturedArticles extends React.Component {
     const oauth    = navigation.getParam('oauth_token', 'none');
 
     return (
-      <ScrollView contentContainerStyle={styles.contentContainer}>
+      <ScrollView>
         {articles.map((item) => {
           return (
             <View style={styles.contentView}>
               <Text style={{ fontSize: 18, fontWeight: "bold"}}>{item.title}</Text>
+              <Text>{item.month} / {item.year}</Text>
               <Text>{item.body}</Text>
               <Button
-                onPress={() => Linking.openURL(item.link)}
-                title="Open in Browser"
+                onPress={() => this.loadNewsletterArticles(item.month, item.year)}
+                title="Open"
                 color="#841584"
-                accessibilityLabel="Open in Browser"
+                accessibilityLabel="Open"
               />
             </View>
           );
@@ -39,14 +66,11 @@ export default class FeaturedArticles extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  contentContainer: {
-    paddingVertical: 15
-  },
   contentView: {
     padding: 10,
     backgroundColor: "#fff",
     border: "1px solid #ccc",
     borderRadius: 4,
-    margin: 4,
+    margin: 6,
   }
 });

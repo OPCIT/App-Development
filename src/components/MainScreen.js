@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Button, Alert } from 'react-native';
+import { Text, TextInput, View, Button, Alert, Image } from 'react-native';
 import { Constants } from 'expo';
 
 export default class MainScreen extends React.Component {
@@ -91,35 +91,45 @@ export default class MainScreen extends React.Component {
     }
 
     return (
-      <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
+      <View style={{ flex: 1, justifyContent: 'flex-start', padding: 10 }}>
+
+      <View>
+          <Image
+            style={{ width: 200, height: 50, alignSelf: "center"}}
+            source={require('../assets/logo_trans.png')}
+            />
+        </View>
+
+        <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
         
-        <View style={{ paddingTop: 12 }}>
-          <Button
-            onPress={() => this.onPressLogout()}
-            title="Logout"
-            style={{ height: 40 }}
-            accessibilityLabel="Logout"
-          />
-        </View>
-      
-        <View style={{ paddingTop: 12 }}>
-          <Button
-            onPress={() => this.getUserProfile()}
-            title="Profile Page"
-            style={{ height: 40 }}
-            accessibilityLabel="Profile Page"
-          />
-        </View>
+          <View style={{ paddingTop: 12 }}>
+            <Button
+              onPress={() => this.getUserProfile()}
+              title="Profile Page"
+              style={{ height: 40 }}
+              accessibilityLabel="Profile Page"
+            />
+          </View>
 
-        <View style={{ paddingTop: 12 }}>
-          <Button
-            onPress={() => this.getFeaturedArticles()}
-            title="Featured Articles"
-            style={{ height: 40 }}
-            accessibilityLabel="Featured Articles"
-          />
-        </View>
+          <View style={{ paddingTop: 12 }}>
+            <Button
+              onPress={() => this.getFeaturedArticles()}
+              title="Featured Articles"
+              style={{ height: 40 }}
+              accessibilityLabel="Featured Articles"
+            />
+          </View>
 
+          <View style={{ paddingTop: 12 }}>
+            <Button
+              onPress={() => this.onPressLogout()}
+              title="Logout"
+              style={{ height: 40 }}
+              accessibilityLabel="Logout"
+            />
+          </View>
+
+        </View>
       </View>
     );
   }
