@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Button, Alert, Image } from 'react-native';
+import { Text, TextInput, View, Button, Alert, Image, ActivityIndicator } from 'react-native';
 import { Constants } from 'expo';
 
 export default class LoginScreen extends Component {
@@ -33,6 +33,7 @@ export default class LoginScreen extends Component {
         username: this.state.user ? this.state.user : 'jeannie.panting@opc.com.au',
         password: this.state.password ? this.state.password : '30S3condstom@rs',
       }),
+      cache: 'no-cache',
     })
       .then(response => response.json())
       .then(responseJson => {
@@ -85,6 +86,7 @@ export default class LoginScreen extends Component {
             <View style={{ width: 180 }}>
               <TextInput
                 style={{ height: 40 }}
+                keyboardType={"email-address"}
                 placeholder="User Name!"
                 onChangeText={user => this.setState({ user })}
               />

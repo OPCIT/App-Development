@@ -19,6 +19,7 @@ export default class FeaturedArticles extends React.Component {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + access_token,
       },
+      cache: 'force-cache',
     }) 
       .then(response => response.json())
       .then(responseJson => {

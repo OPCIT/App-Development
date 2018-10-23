@@ -38,6 +38,7 @@ export default class MainScreen extends React.Component {
         Authorization: 'Bearer ' + access_token,
       },
       body: JSON.stringify({}),
+      cache: 'no-cache',
     })
       .then(response => response.json())
       .then(responseJson => {
@@ -63,6 +64,7 @@ export default class MainScreen extends React.Component {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + access_token,
       },
+      cache: 'force-cache',
     })
       .then(response => response.json())
       .then(responseJson => {
@@ -75,6 +77,15 @@ export default class MainScreen extends React.Component {
         Alert.alert(JSON.stringify(error));
         console.error(error);
       });
+  }
+
+  loadLeaveForm() {
+    const { navigation } = this.props;
+    const access_token   = navigation.getParam('oauth_token', 'none');
+
+    this.props.navigation.navigate('LeaveForm', {
+      oauth_token: access_token
+    });
   }
 
   static navigationOptions = {
@@ -121,6 +132,15 @@ export default class MainScreen extends React.Component {
           </View>
 
           <View style={{ paddingTop: 12 }}>
+            <Button
+              onPress={() => this.loadLeaveForm()}
+              title="Leave Form"
+              style={{ height: 40 }}
+              accessibilityLabel="Leave Form"
+            />
+          </View>
+
+          <View style={{ paddingTop: 24 }}>
             <Button
               onPress={() => this.onPressLogout()}
               title="Logout"
